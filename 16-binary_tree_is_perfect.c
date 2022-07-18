@@ -1,5 +1,30 @@
 #include "binary_trees.h"
 /**
+ * binary_tree_is_full - checks if a binary tree is full
+ * @tree: tree
+ * Return: 1 if is full or 0 if failed or not full
+ */
+int binary_tree_is_full(const binary_tree_t *tree)
+{
+	int left = 0, right = 0;
+
+	if (tree == NULL)
+		return (0);
+	if (tree->left == NULL && tree->right == NULL)
+		return (1);
+	if (tree->left && tree->right == NULL)
+		return (0);
+	if (tree->right && tree->left == NULL)
+		return (0);
+	if (tree->left)
+		left = binary_tree_is_full(tree->left);
+	if (tree->right)
+		right = binary_tree_is_full(tree->right);
+	if (left == 0 || right == 0)
+		return (0);
+	return (1);
+}
+/**
  * max_height - compare tow integers
  * @left: count
  * @right: count
@@ -37,29 +62,23 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	return (max_height(left_height, right_height));
 }
 /**
- * binary_tree_is_full - checks if a binary tree is full
+ * binary_tree_balance - the balance factor of a binary tree
  * @tree: tree
- * Return: 1 if is full or 0 if failed or not full
+ * Return: factor
  */
-int binary_tree_is_full(const binary_tree_t *tree)
+int binary_tree_balance(const binary_tree_t *tree)
 {
-	int left = 0, right = 0;
+	int left_height = 0, right_height = 0;
 
 	if (tree == NULL)
 		return (0);
 	if (tree->left == NULL && tree->right == NULL)
-		return (1);
-	if (tree->left && tree->right == NULL)
-		return (0);
-	if (tree->right && tree->left == NULL)
 		return (0);
 	if (tree->left)
-		left = binary_tree_is_full(tree->left);
+		left_height = 1 + binary_tree_height(tree->left);
 	if (tree->right)
-		right = binary_tree_is_full(tree->right);
-	if (left == 0 || right == 0)
-		return (0);
-	return (1);
+		right_height = 1 + binary_tree_height(tree->right);
+	return (left_height - right_height);
 }
 /**
  * binary_tree_is_perfect - checks if a binary tree is perfect
@@ -68,19 +87,9 @@ int binary_tree_is_full(const binary_tree_t *tree)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int full = 0, left = 0, right = 0;
-
-	if (tree == NULL)
+	if (binary_tree_is_full(tree) == 0)
 		return (0);
-	if (tree->left == NULL && tree->right == NULL)
-		return (1);
-	if (tree->right == NULL || tree->left == NULL)
+	if (binary_tree_balance(tree) != 0)
 		return (0);
-	full = binary_tree_is_full(tree);
-	left = binary_tree_height(tree->left);
-	right = binary_tree_height(tree->right);
-	if (left == right && full == 1)
-		return (1);
-	else
-		return (0);
+	return (1);
 }
