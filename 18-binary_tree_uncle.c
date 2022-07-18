@@ -14,7 +14,7 @@ binary_tree_t *binary_tree_uncle(binary_tree_t *node)
 	move = move->parent->parent;
 
 	if (move->right != node->parent)
-		return(move->right);
+		return (move->right);
 	if (move->left != node->parent)
 		return (move->left);
 	return (NULL);
