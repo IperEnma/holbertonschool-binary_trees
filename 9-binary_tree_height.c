@@ -1,8 +1,9 @@
 #include "binary_trees.h"
 /**
- * binary_tree_height - height of a binary tree
- * @tree: tree
- * Return: height
+ * max_height - compare tow integers
+ * @left: count
+ * @right: count
+ * Return: max integer
  */
 size_t max_height(size_t left, size_t right)
 {
@@ -14,6 +15,11 @@ size_t max_height(size_t left, size_t right)
 		return (right);
 	return (0);
 }
+/**
+ * binary_tree_height - height of a binary tree
+ * @tree: tree
+ * Return: height
+ */
 size_t binary_tree_height(const binary_tree_t *tree)
 {
 	size_t left_height = 0, right_height = 0;
