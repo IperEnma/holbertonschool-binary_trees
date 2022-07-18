@@ -16,8 +16,10 @@ int main(void)
     root->left = binary_tree_node(root, 12);
     root->right = binary_tree_node(root, 402);
     binary_tree_insert_right(root->left, 54);
-    binary_tree_insert_right(root, 128);
+    root->right = binary_tree_insert_right(root, 128);
+	binary_tree_insert_left(root->right, 44);
     root->left->left = binary_tree_node(root->left, 10);
+	binary_tree_insert_left(root, 55);
     binary_tree_print(root);
 
     full = binary_tree_is_full(root);
