@@ -1,5 +1,24 @@
 #include "binary_trees.h"
 /**
+ * binary_tree_size - binary tree size
+ * @tree: tree
+ * Return: size tree
+ */
+size_t binary_tree_size(const binary_tree_t *tree)
+{
+	size_t size = 0;
+
+	if (tree == NULL)
+		return (0);
+	if (tree->left == NULL && tree->right == NULL)
+		return (1);
+	if (tree->left)
+		size += binary_tree_size(tree->left);
+	if (tree->right)
+		size += binary_tree_size(tree->right);
+	return (1 + size);
+}
+/**
  * max_height - compare tow integers
  * @left: count
  * @right: count
@@ -28,6 +47,7 @@ size_t binary_tree_height(const binary_tree_t *tree)
 		return (0);
 	if (tree->left == NULL && tree->right == NULL)
 		return (0);
+
 	if (tree->left)
 		left_height = (1 + binary_tree_height(tree->left));
 	if (tree->right)
@@ -36,46 +56,17 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	return (max_height(left_height, right_height));
 }
 /**
- * binary_tree_balance - the balance factor of a binary tree
- * @tree: tree
- * Return: factor
+ * pow_recursive - calculate pow
+ * @base: base
+ * @pow: pow
+ * Return: result
  */
-int binary_tree_balance(const binary_tree_t *tree)
+size_t pow_recursive(size_t base, size_t pow)
 {
-	int left_height = 0, right_height = 0;
-
-	if (tree == NULL)
-		return (0);
-	if (tree->left)
-		left_height = 1 + binary_tree_height(tree->left);
-	if (tree->right)
-		right_height = 1 + binary_tree_height(tree->right);
-	return (left_height - right_height);
-}
-/**
- * binary_tree_is_full - checks if a binary tree is full
- * @tree: tree
- * Return: 1 if is full or 0 if failed or not full
- */
-int binary_tree_is_full(const binary_tree_t *tree)
-{
-	int left = 0, right = 0;
-
-	if (tree == NULL)
-		return (0);
-	if (tree->left == NULL && tree->right == NULL)
+	if (pow <= 0)
 		return (1);
-	if (tree->left && tree->right == NULL)
-		return (0);
-	if (tree->right && tree->left == NULL)
-		return (0);
-	if (tree->left)
-		left = binary_tree_is_full(tree->left);
-	if (tree->right)
-		right = binary_tree_is_full(tree->right);
-	if (left == 0 || right == 0)
-		return (0);
-	return (1);
+	else
+		return (base * pow_recursive(base, pow - 1));
 }
 /**
  * binary_tree_is_perfect - checks if a binary tree is perfect
@@ -84,13 +75,16 @@ int binary_tree_is_full(const binary_tree_t *tree)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
+	size_t size = 0, height = 0, pow = 0;
+
 	if (tree == NULL)
 		return (0);
 	if (tree->left == NULL && tree->right == NULL)
-		return (0);
-	if (binary_tree_is_full(tree) == 1)
-		return (0);
-	if (binary_tree_balance(tree) != 0)
-		return (0);
-	return (1);
+		return (1);
+	size = binary_tree_size(tree);
+	height = binary_tree_height(tree);
+	pow = pow_recursive(2, height + 1);
+	if (pow - 1 == size)
+		return (1);
+	return (0);
 }
