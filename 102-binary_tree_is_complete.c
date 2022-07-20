@@ -19,8 +19,11 @@ size_t binary_tree_size(const binary_tree_t *tree)
 	return (1 + size);
 }
 /**
- *
- *
+ * iscomplete - check if is complete
+ * @tree: tree
+ * @size: size of tree
+ * @index: lvl in the tree
+ * Return: 1 if is complete or 0 if is not complete
  */
 int iscomplete(const binary_tree_t *tree, size_t size, size_t index)
 {
@@ -30,10 +33,10 @@ int iscomplete(const binary_tree_t *tree, size_t size, size_t index)
 		return (1);
 	if (index >= size)
 		return (0);
-	status = iscomplete(tree->left, size, 2*index + 1);
+	status = iscomplete(tree->left, size, 2 * index + 1);
 	if (status == 0)
 		return (status);
-	status = iscomplete(tree->right, size, 2*index + 2);
+	status = iscomplete(tree->right, size, 2 * index + 2);
 	return (status);
 }
 /**
