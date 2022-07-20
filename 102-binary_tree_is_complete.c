@@ -40,8 +40,9 @@ int iscomplete(const binary_tree_t *tree, size_t size, size_t index)
 	return (status);
 }
 /**
- *
- *
+ * binary_tree_is_complete - principal function
+ * @tree: tree
+ * Return: 1 if is complete or 0 if is not complete
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
