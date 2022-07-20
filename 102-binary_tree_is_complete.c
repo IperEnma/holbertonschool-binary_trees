@@ -31,6 +31,8 @@ int iscomplete(const binary_tree_t *tree, size_t size, size_t index)
 	if (index >= size)
 		return (0);
 	status = iscomplete(tree->left, size, 2*index + 1);
+	if (status == 0)
+		return (status);
 	status = iscomplete(tree->right, size, 2*index + 2);
 	return (status);
 }
